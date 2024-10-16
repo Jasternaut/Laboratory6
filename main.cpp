@@ -2,6 +2,7 @@
 #include <iostream>
 #include <list>
 #include <algorithm>
+#include <cmath>
 
 /*
 Лабораторная работа 6. Массивы.
@@ -27,28 +28,47 @@
 
 */
 
+bool is_prime(int number){
+
+    if(number < 2) return false;
+    if(number == 2) return true;
+    if(number % 2 == 0) return false;
+    for(int i=3; (i*i)<=number; i+=2){
+        if(number % i == 0 ) return false;
+    }
+    return true;
+}
+
 int program1()
 {
     std::cout << "Task 1" << std::endl;
-    const int size = 10;
-    int list[size];
+    const int list_size = 10;
+    int list[list_size];
     int count = 0;
-
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < list_size; i++)
     {
         int n;
         std::cin >> n;
         list[i] = n;
     }
 
+    bool has_prime = false;
+    for (auto n : list) {
+        if (is_prime(n)) {
+            has_prime = true;
+            break;
+        }
+    }
+
+    // Если последовательность не содержит простых чисел, сортируем её по убыванию
+    if (!has_prime) 
+    {
+        std::sort(list, list + list_size, std::greater<int>());
+    }
+
+    std::cout << "Result: ";
     for (int x : list)
     {
-        if (x % 1 != 0 && x % x != 0)
-        {
-            std::sort(list, list + sizeof(list), std::greater<int>());
-            // greater это функция срввнения, которая возвращает true, если первое число больше второго.
-        }
-
         std::cout << x << " ";
     }
 
@@ -60,27 +80,37 @@ int program2()
     std::cout << "Task 2" << std::endl;
     const int size = 10;
     int list[size];
-    int count = 0;
 
     for (int i = 0; i < size; i++)
     {
-        int n;
-        std::cin >> n;
-        list[i] = n;
+        int num;
+        std::cin >> num;
+        list[i] = num;
     }
 
-    for (int i = 0; i < size; i++)
+    // упорядочивание по возрастанию первой цифры числа
+    for (int x : list)
     {
-        if (list[i] <= 9)
+        if (x <= 9) // если число меньше 10
         {
-
+            x = (x * 10) % 10;
         }   
-        else
+        else // если число больше 10
         {
-
-        } 
+            while (x /= 10)
+            {
+                x = x % 10;
+            }
+        }
+        
+        
     }
-    
+    std::sort(list, list + sizeof(list), std::greater<int>());
+
+    for (int x : list)
+    {
+        std::cout << x << " " << std::endl;
+    }
 
     return 0;
 }
