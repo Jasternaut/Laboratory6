@@ -75,12 +75,39 @@ int program1()
     return 0;
 }
 
+bool compare(int a, int b)
+{
+    int firsta = 0, firstb = 0;
+    int a1 = a, b1 = b;
+    while (a1)
+    {
+        firsta = a1 % 10;
+        a1 /= 10;
+    }
+    while (b1)
+    {
+        firstb = b1 % 10;
+        b1 /= 10;
+    }
+    if (firsta < firstb) // возрастание первой цифры
+        return true;
+    if (firsta > firstb)// возрастание первой цифры
+        return false;
+
+    if (a % 10 < b % 10) // возрастание последней цифры
+        return true;
+    if (a % 10 > b % 10) // возрастание последней цифры
+        return false;
+    return a < b;
+}
+
 int program2()
 {
     std::cout << "Task 2" << std::endl;
     const int size = 10;
     int list[size];
 
+    // Ввод чисел последовательности
     for (int i = 0; i < size; i++)
     {
         int num;
@@ -88,28 +115,13 @@ int program2()
         list[i] = num;
     }
 
-    // упорядочивание по возрастанию первой цифры числа
-    for (int x : list)
-    {
-        if (x <= 9) // если число меньше 10
-        {
-            x = (x * 10) % 10;
-        }   
-        else // если число больше 10
-        {
-            while (x /= 10)
-            {
-                x = x % 10;
-            }
-        }
-        
-        
-    }
-    std::sort(list, list + sizeof(list), std::greater<int>());
+    std::sort(list, list + 10, compare);
 
+    // Вывод ответа
+    std::cout << "Result: ";
     for (int x : list)
     {
-        std::cout << x << " " << std::endl;
+        std::cout << x << " ";
     }
 
     return 0;
