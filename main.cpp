@@ -145,7 +145,42 @@ int program3()
         }
     }
 
+    // поиск строки с наибольшей суммой
+    int max_sum = 0;
+    int row = 0;
+    for (int a = 0; a<i; a++)
+    {
+        int sum = 0;
+        for (int b = 0; b<j; b++)
+        {
+            sum += matrix[a][b];
+        }
+        if (sum >= max_sum)
+        {
+            max_sum = sum;
+            row = a;
+        }
+    }
+
     std::cout << std::endl;
+
+    for (int a = 0; a < i; a++)
+    {
+        for (int b = 0; b < j; b++)
+        {
+            std::cout << matrix[a][b] << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    std::cout << "Max sum is " << max_sum << std::endl;
+    std::cout << "Max sum row is " << row << std::endl;
+    std::cout << "New matrix is:" << std::endl;
+
+    for (int b = 0; b < j; b++)
+    {
+        matrix[row][b] = max_sum;
+    }
 
     for (int a = 0; a < i; a++)
     {
