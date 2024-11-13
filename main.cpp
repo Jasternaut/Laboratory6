@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <list>
 #include <algorithm>
@@ -9,29 +8,25 @@
 
 1. 	Дана последовательность натуральных чисел {aj}j=1...n (n<=10000). 
 Если в последовательности нет ни одного простого числа, упорядочить последовательность по невозрастанию.
-[готово]
  
 2. 	Ввести последовательность натуральных чисел {Aj}j=1...n (n<=1000). 
 Упорядочить последовательность по неубыванию первой цифры числа, 
 числа с одинаковыми первыми цифрами дополнительно упорядочить по неубыванию наименьшей цифры числа, 
 числа с одинаковыми первыми цифрами и  одинаковыми наименьшими цифрами дополнительно упорядочить 
 по неубыванию самого числа.
-[готово]
  
 3. 	Дана целочисленная матрица {Aij}i=1..n,j=1..m (n,m<=100). 
 Найти строку с наименьшей суммой элементов и заменнить все элементы этой строки этой суммой.
-[готово]
 
 4. Сначала введите последовательность. Затем удалите и продублируйте элементы. 
 Затем выведите полученную последовательность (каждый элемент по одному разу). 
 Используйте в программе только один массив.
 
-
 Дана последовательность натуральных чисел {Aj}j=1...n (n<=10000). 
 Удалить из последовательности числа-палиндромы, а среди оставшихся продублировать простые числа.
-
 */
 
+// Проверка на простое число
 bool is_prime(int number){
 
     for(int i=2; i*i <= number; i++)
@@ -41,17 +36,19 @@ bool is_prime(int number){
     return true;
 }
 
+// Пункт 1
 int program1()
 {
     std::cout << "Task 1" << std::endl;
-    const int list_size = 10;
+    const int list_size = 10000;
     int list[list_size];
     int count = 0;
-    for (int i = 0; i < list_size; i++)
+
+    int n;
+    std::cin >> n;
+    for (int i = 0; i < n; i++)
     {
-        int n;
-        std::cin >> n;
-        list[i] = n;
+        std::cin >> list[i];
     }
 
     bool has_prime = false;
@@ -68,7 +65,7 @@ int program1()
         std::sort(list, list + list_size, std::greater<int>());
     }
 
-    std::cout << "Result: ";
+    std::cout << "[O] Result: ";
     for (int x : list)
     {
         std::cout << x << " ";
@@ -77,6 +74,7 @@ int program1()
     return 0;
 }
 
+// Сравнение двух цифр
 bool compare(int a, int b)
 {
     int firsta = 0, firstb = 0;
@@ -103,24 +101,26 @@ bool compare(int a, int b)
     return a < b;
 }
 
+// Пункт 2
 int program2()
 {
     std::cout << "Task 2" << std::endl;
-    const int size = 10;
+    const int size = 10000;
     int list[size];
+
+    int n;
+    std::cin >> n;
 
     // Ввод чисел последовательности
     for (int i = 0; i < size; i++)
     {
-        int num;
-        std::cin >> num;
-        list[i] = num;
+        std::cin >> list[i];
     }
 
     std::sort(list, list + 10, compare);
 
     // Вывод ответа
-    std::cout << "Result: ";
+    std::cout << "[O] Result: ";
     for (int x : list)
     {
         std::cout << x << " ";
@@ -131,13 +131,23 @@ int program2()
 
 int program3()
 {
-    const int i = 3;
-    const int j = 3;
+    std::cout << "Task 3" << std::endl;
+    const int i = 100;
+    const int j = 100;
     int matrix[i][j];
+    std::cout << "[O] Matrix initialized" << std::endl;
+
+    std::cout << "[I] Input i count: ";
+    int i_input;
+    std::cin >> i_input;
+
+    std::cout << "[I] Input j count: ";
+    int j_input;
+    std::cin >> j_input;
   
-    for (int a = 0; a < i; a++)
+    for (int a = 0; a < i_input; a++)
     {
-        for (int b = 0; b < j; b++)
+        for (int b = 0; b < j_input; b++)
         {
             int x;
             std::cin >> x;
@@ -173,9 +183,9 @@ int program3()
         std::cout << std::endl;
     }
 
-    std::cout << "Max sum is " << max_sum << std::endl;
-    std::cout << "Max sum row is " << row << std::endl;
-    std::cout << "New matrix is:" << std::endl;
+    std::cout << "[O] Max sum is " << max_sum << std::endl;
+    std::cout << "[O] Max sum row is " << row << std::endl;
+    std::cout << "[O] New matrix is:" << std::endl;
 
     for (int b = 0; b < j; b++)
     {
@@ -196,19 +206,20 @@ int program3()
 
 int program4()
 {
+    std::cout << "Task 4" << std::endl;
     const int N_Max = 20000;
     int mas[N_Max];
 
-    std::cout << "[205] Input massive number count: ";
+    std::cout << "[I] Input massive number count: ";
     int n;
     std::cin >> n;
 
-    std::cout << "[210] Input " << n << " numbers: " << std::endl;
+    std::cout << "[I] Input " << n << " numbers: " << std::endl;
 
     for (int i = 0; i < n; i++)
         std::cin >> mas[i];
     
-    std::cout << "[214] Added numbers to massive" << std::endl;
+    std::cout << "[O] Added numbers to massive" << std::endl;
 
     for (int i = 0; i < n; i++)
     {
@@ -221,12 +232,9 @@ int program4()
             x/=10;
         }
 
-        std::cout << "x: " << x << std::endl;
-        std::cout << "y: " << y << std::endl;
-
         if(mas[i] == y)
         {
-            std::cout << "[229] " << mas[i] << " is palindrome" << std::endl;
+            std::cout << "[O] " << mas[i] << " is palindrome" << std::endl;
 
             for (int j = i; j<n-1;j++)
                 mas[j] = mas[j+1];                          
@@ -240,7 +248,6 @@ int program4()
     {
         if (is_prime(mas[i]))
         {
-            std::cout << "[246] " << mas[i] << " is prime" << std::endl;
             for (int j = n; j>i; j--)
                 mas[j] = mas[j-1];               
             i++;
@@ -248,7 +255,7 @@ int program4()
         }
     }
     
-    std::cout << "Result is: ";
+    std::cout << "[O] Result is: ";
 
     for (int i = 0; i<n; i++)
     {
@@ -261,7 +268,7 @@ int program4()
 
 int main()
 {
-    std::cout << "Select number of Task from 1 to 4: ";
+    std::cout << "[I] Select number of Task from 1 to 4: ";
     unsigned int select;
     std::cin >> select;
 
@@ -280,7 +287,7 @@ int main()
             program4();
             break;
         default:
-            std::cout << "wrong number" << std::endl;
+            std::cout << "[Error] Wrong number" << std::endl;
     }
 
     return 0;
