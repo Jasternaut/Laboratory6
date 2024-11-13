@@ -20,10 +20,12 @@
  
 3. 	Дана целочисленная матрица {Aij}i=1..n,j=1..m (n,m<=100). 
 Найти строку с наименьшей суммой элементов и заменнить все элементы этой строки этой суммой.
+[готово]
 
 4. Сначала введите последовательность. Затем удалите и продублируйте элементы. 
 Затем выведите полученную последовательность (каждый элемент по одному разу). 
 Используйте в программе только один массив.
+
 
 Дана последовательность натуральных чисел {Aj}j=1...n (n<=10000). 
 Удалить из последовательности числа-палиндромы, а среди оставшихся продублировать простые числа.
@@ -196,14 +198,82 @@ int program3()
 
 int program4()
 {
+    const int N_Max = 20000;
+    int mas[N_Max];
+
+    std::cout << "[204] Initialized massive with size " << N_Max << std::endl;
+    std::cout << "[205] Input massive number count: ";
+    int n;
+    std::cin >> n;
+
+    std::cout << "[209] In massive will be " << n << " numbers." << std::endl;
+    std::cout << "[210] Input 6 numbers: " << std::endl;
+
+    for (int i = 0; i < n; i++)
+        std::cin >> mas[i];
     
+    std::cout << "[214] Added numbers to massive" << std::endl;
+
+    for (int i = 0; i < n; i++)
+    {
+        // проверка на палиндромы
+        int x = mas[i];
+        int y = 0;
+        while(x > 0)
+        {
+            y = y*10 + x%10;
+            x/=10;
+        }
+        
+        if(x == y)
+        {
+            std::cout << "[229] " << x << " is palindrome" << std::endl;
+
+            for (int j = i; j<n-1;j++)
+            {
+                std::cout << "[233] " << mas[j] << " will be " << mas[j+1] << std::endl;
+                mas[j] = mas[j+1];
+            }               
+            i--;
+            n--;
+        }
+    }
+
+    // дублирование
+    for (int i = 0; i < n && n < N_Max; i++)
+    {
+        if (is_prime(mas[i]))
+        {
+            std::cout << "[246] " << mas[i] << " is prime" << std::endl;
+            for (int j = n; j>i; j--)
+            {
+                std::cout << "[249] " << mas[j] << " will be " << mas[j-1] << std::endl;
+                mas[j] = mas[j-1];
+            }
+                
+            i++;
+            n++;
+        }
+        else
+        {
+            
+        }
+    }
+    
+    std::cout << "Result is: ";
+
+    for (int num : mas)
+    {
+        std::cout << num << " ";
+    }
 
     return 0;
 }
 
+
 int main()
 {
-    std::cout << "Select number of Task: ";
+    std::cout << "Select number of Task from 1 to 4: ";
     unsigned int select;
     std::cin >> select;
 
