@@ -34,11 +34,9 @@
 
 bool is_prime(int number){
 
-    if(number < 2) return false;
-    if(number == 2) return true;
-    if(number % 2 == 0) return false;
-    for(int i=3; (i*i)<=number; i+=2){
-        if(number % i == 0 ) return false;
+    for(int i=2; i*i <= number; i++)
+    {
+        if (number%i==0) return false;
     }
     return true;
 }
@@ -201,13 +199,11 @@ int program4()
     const int N_Max = 20000;
     int mas[N_Max];
 
-    std::cout << "[204] Initialized massive with size " << N_Max << std::endl;
     std::cout << "[205] Input massive number count: ";
     int n;
     std::cin >> n;
 
-    std::cout << "[209] In massive will be " << n << " numbers." << std::endl;
-    std::cout << "[210] Input 6 numbers: " << std::endl;
+    std::cout << "[210] Input " << n << " numbers: " << std::endl;
 
     for (int i = 0; i < n; i++)
         std::cin >> mas[i];
@@ -224,47 +220,39 @@ int program4()
             y = y*10 + x%10;
             x/=10;
         }
-        
-        if(x == y)
+
+        std::cout << "x: " << x << std::endl;
+        std::cout << "y: " << y << std::endl;
+
+        if(mas[i] == y)
         {
-            std::cout << "[229] " << x << " is palindrome" << std::endl;
+            std::cout << "[229] " << mas[i] << " is palindrome" << std::endl;
 
             for (int j = i; j<n-1;j++)
-            {
-                std::cout << "[233] " << mas[j] << " will be " << mas[j+1] << std::endl;
-                mas[j] = mas[j+1];
-            }               
+                mas[j] = mas[j+1];                          
             i--;
             n--;
         }
     }
 
     // дублирование
-    for (int i = 0; i < n && n < N_Max; i++)
+    for (int i = 0; i < n; i++)
     {
         if (is_prime(mas[i]))
         {
             std::cout << "[246] " << mas[i] << " is prime" << std::endl;
             for (int j = n; j>i; j--)
-            {
-                std::cout << "[249] " << mas[j] << " will be " << mas[j-1] << std::endl;
-                mas[j] = mas[j-1];
-            }
-                
+                mas[j] = mas[j-1];               
             i++;
             n++;
-        }
-        else
-        {
-            
         }
     }
     
     std::cout << "Result is: ";
 
-    for (int num : mas)
+    for (int i = 0; i<n; i++)
     {
-        std::cout << num << " ";
+        std::cout << mas[i] << " ";
     }
 
     return 0;
